@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gizlilik Politikası — Metabolizma Günlüğü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1A18;
+    --panel:#16241F;
+    --panel-2:#1C2C26;
+    --paper:#F4EFE4;
+    --mint:#4FBFA0;
+    --mint-dim:#2E6F5C;
+    --amber:#E3A75B;
+    --azure:#6FA8C9;
+    --line: rgba(244,239,228,0.12);
+    --line-strong: rgba(244,239,228,0.22);
+    --muted: rgba(244,239,228,0.58);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(79,191,160,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(111,168,201,0.08), transparent 55%),
+      radial-gradient(rgba(244,239,228,0.05) 1px, transparent 1px),
+      var(--ink);
+    background-size: auto, auto, 26px 26px, auto;
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--mint); color:#0F1A18; }
+  a{ color: var(--mint); }
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top: 40px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration:none;
+  }
+  .back:hover{ color: var(--mint); }
+  header{
+    padding: 24px 0 44px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mint);
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom: 18px;
+  }
+  .eyebrow svg{ width:14px; height:14px; stroke: var(--mint); fill:none; stroke-width:2; }
+  .eyebrow .dot{ width:7px;height:7px;border-radius:50%; background: var(--mint); box-shadow: 0 0 0 3px rgba(79,191,160,0.18); }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(30px, 4.6vw, 44px);
+    line-height: 1.08;
+    margin: 0;
+  }
+  .updated{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 40px 0 12px;
+    color: var(--paper);
+  }
+  p{
+    color: var(--muted);
+    font-size: 15.5px;
+    margin: 0 0 14px;
+  }
+  p strong{ color: var(--paper); }
+  ul{ margin: 0 0 14px; padding-left: 20px; color: var(--muted); font-size: 15.5px; }
+  li{ margin-bottom: 8px; }
+
+  .note{
+    margin-top: 40px;
+    padding: 18px 20px;
+    border-left: 2px solid var(--mint-dim);
+    background: var(--panel);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  footer{
+    padding: 48px 0 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-family:'IBM Plex Mono', monospace;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-heart{ color: var(--mint); }
+  .footer-links{ display:flex; gap:18px; }
+  .footer-links a{ color: var(--muted); text-decoration:none; }
+  .footer-links a:hover{ color: var(--mint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">&larr; Metabolizma Günlüğü'ne dön</a>
+
+  <header>
+    <div class="eyebrow"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5 6.5 5c2 0 3.5 1.2 4.5 2.8C12 6.2 13.5 5 15.5 5c4 0 5.5 4 4 7.5C19 16.65 12 21 12 21z"/></svg><span class="dot"></span>Gizlilik Politikası</div>
+    <h1>Gizlilik Politikası</h1>
+    <div class="updated">Son güncelleme: Temmuz 2026</div>
+  </header>
+
+  <p>Bu Gizlilik Politikası, <strong>Metabolizma Günlüğü</strong> web sitesini ("site") kullanırken hangi bilgilerin nasıl işlendiğini açıklar. Siteyi kullanarak bu politikayı kabul etmiş sayılırsın.</p>
+
+  <h2>1. Hangi bilgileri topluyoruz</h2>
+  <p>Sitedeki hesaplama aracına girdiğin yaş, boy, kilo, cinsiyet, hareket düzeyi ve öğün notları gibi bilgiler <strong>yalnızca kendi tarayıcında işlenir</strong>; bir sunucuya gönderilmez, bir veritabanında saklanmaz. Sayfayı kapattığında bu bilgiler kaybolur.</p>
+  <p>İletişim için bize e-posta gönderirsen, yalnızca yanıt vermek amacıyla e-posta adresini ve mesaj içeriğini görürüz.</p>
+
+  <h2>2. Çerezler ve Reklamlar</h2>
+  <p>Site, gelirini desteklemek amacıyla üçüncü taraf reklam sağlayıcıları (ör. Google AdSense) kullanabilir. Bu sağlayıcılar, sana ilgi alanlarına göre reklam gösterebilmek için tarayıcına çerez yerleştirebilir ve önceki ziyaretlerine ait bilgileri kullanabilir.</p>
+  <p>Google, reklam ortağı sitelerde çerez kullanımı hakkında bilgiyi <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Google Reklam Politikaları</a> sayfasında paylaşır. Kişiselleştirilmiş reklamları <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Reklam Ayarları</a> üzerinden kapatabilirsin.</p>
+  <ul>
+    <li>Bu üçüncü taraf sağlayıcıların çerez ve veri kullanımı, kendi gizlilik politikalarına tabidir; bu politikalar üzerinde doğrudan kontrolümüz yoktur.</li>
+    <li>Tarayıcı ayarlarından çerezleri dilediğin zaman engelleyebilir veya silebilirsin; bu durumda bazı reklamlar kişiselleştirilmemiş şekilde gösterilebilir.</li>
+  </ul>
+
+  <h2>3. Üçüncü taraf bağlantıları</h2>
+  <p>Site, zaman zaman üçüncü taraf sitelere bağlantı verebilir. Bu sitelerin içerik ve gizlilik uygulamalarından sorumlu değiliz; ziyaret ettiğin her sitenin kendi politikasını incelemeni öneririz.</p>
+
+  <h2>4. Veri güvenliği</h2>
+  <p>Kişisel verilerini sunucuya göndermediğimiz için, bu verilerle ilgili bir sunucu tarafı güvenlik riski oluşmaz. Yine de kendi cihazının ve tarayıcının güvenliğini sağlamak senin sorumluluğundadır.</p>
+
+  <h2>5. Politika değişiklikleri</h2>
+  <p>Bu politika zaman zaman güncellenebilir. Güncel sürüm her zaman bu sayfada yayınlanır; önemli değişikliklerde sayfanın üst kısmındaki tarihi güncelleriz.</p>
+
+  <h2>6. İletişim</h2>
+  <p>Gizlilikle ilgili sorularını <a href="mailto:iletisim@metabolizmagunlugu.com">iletisim@metabolizmagunlugu.com</a> adresine iletebilirsin.</p>
+
+  <div class="note">
+    Bu site tıbbi bir hizmet sunmaz; hesaplama sonuçları istatistiksel tahminlerdir ve tıbbi tavsiye yerine geçmez. Sağlık kararların için bir profesyonele danış.
+  </div>
+
+  <footer>
+    <span><span class="footer-heart">♥</span> Metabolizma Günlüğü</span>
+    <span class="footer-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+    </span>
+  </footer>
+
+</div>
+</body>
+</html>

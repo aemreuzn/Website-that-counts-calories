@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hakkımızda — Metabolizma Günlüğü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1A18;
+    --panel:#16241F;
+    --panel-2:#1C2C26;
+    --paper:#F4EFE4;
+    --mint:#4FBFA0;
+    --mint-dim:#2E6F5C;
+    --amber:#E3A75B;
+    --azure:#6FA8C9;
+    --line: rgba(244,239,228,0.12);
+    --line-strong: rgba(244,239,228,0.22);
+    --muted: rgba(244,239,228,0.58);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(79,191,160,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(111,168,201,0.08), transparent 55%),
+      radial-gradient(rgba(244,239,228,0.05) 1px, transparent 1px),
+      var(--ink);
+    background-size: auto, auto, 26px 26px, auto;
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--mint); color:#0F1A18; }
+  a{ color: var(--mint); }
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top: 40px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration:none;
+  }
+  .back:hover{ color: var(--mint); }
+  header{
+    padding: 24px 0 44px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mint);
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom: 18px;
+  }
+  .eyebrow svg{ width:14px; height:14px; stroke: var(--mint); fill:none; stroke-width:2; }
+  .eyebrow .dot{ width:7px;height:7px;border-radius:50%; background: var(--mint); box-shadow: 0 0 0 3px rgba(79,191,160,0.18); }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(30px, 4.6vw, 44px);
+    line-height: 1.08;
+    margin: 0;
+  }
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 44px 0 14px;
+    color: var(--paper);
+  }
+  p{
+    color: var(--muted);
+    font-size: 15.5px;
+    margin: 0 0 14px;
+  }
+  p strong{ color: var(--paper); }
+  ul{ margin: 0 0 14px; padding-left: 20px; color: var(--muted); font-size: 15.5px; }
+  li{ margin-bottom: 8px; }
+
+  .note{
+    margin-top: 40px;
+    padding: 18px 20px;
+    border-left: 2px solid var(--mint-dim);
+    background: var(--panel);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  footer{
+    padding: 48px 0 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-family:'IBM Plex Mono', monospace;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-heart{ color: var(--mint); }
+  .footer-links{ display:flex; gap:18px; }
+  .footer-links a{ color: var(--muted); text-decoration:none; }
+  .footer-links a:hover{ color: var(--mint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">&larr; Metabolizma Günlüğü'ne dön</a>
+
+  <header>
+    <div class="eyebrow"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5 6.5 5c2 0 3.5 1.2 4.5 2.8C12 6.2 13.5 5 15.5 5c4 0 5.5 4 4 7.5C19 16.65 12 21 12 21z"/></svg><span class="dot"></span>Hakkımızda</div>
+    <h1>Metabolizma Günlüğü nedir?</h1>
+  </header>
+
+  <p><strong>Metabolizma Günlüğü</strong>, günlük öğünlerini not almak isteyen ve bu sırada günlük kalori ihtiyacı, vücut kitle indeksi (BKİ), tahmini yağ ve su oranı gibi temel vücut bileşimi göstergelerini görmek isteyen kişiler için hazırlanmış basit bir kişisel araçtır.</p>
+  <p>Site, karmaşık bir beslenme takip uygulaması olma iddiasında değil; boy, kilo, yaş ve hareket düzeyi gibi birkaç temel bilgiden yola çıkarak sana genel bir tablo sunar ve bu tabloyu günlük öğün notlarınla bir arada tutmanı kolaylaştırır.</p>
+
+  <h2>Ne sunuyoruz</h2>
+  <ul>
+    <li>Mifflin-St Jeor formülüyle günlük kalori ihtiyacı (BMR ve TDEE) hesaplaması</li>
+    <li>Vücut kitle indeksi (BKİ) ve kategori göstergesi</li>
+    <li>Deurenberg formülüyle tahmini vücut yağ oranı</li>
+    <li>Watson formülüyle tahmini vücut su oranı</li>
+    <li>Hedefe (koruma / fit olma / zayıflama) ve bütçe seviyesine göre örnek beslenme önerileri</li>
+  </ul>
+
+  <h2>Neden bu formülleri kullanıyoruz</h2>
+  <p>Sitedeki tüm sayısal sonuçlar, beslenme ve spor bilimlerinde yaygın olarak kullanılan istatistiksel formüllere dayanır. Bunlar; belirli bir toplumun ortalamalarından türetilmiş <strong>tahmin</strong> denklemleridir, kişiye özel laboratuvar ölçümlerinin (biyoelektrik empedans analizi, DEXA taraması vb.) yerini tutmaz. Sonuçları bu şekilde, bir başlangıç noktası olarak değerlendirmeni öneririz.</p>
+
+  <h2>Sorumluluk reddi</h2>
+  <p>Bu site tıbbi bir hizmet sunmaz ve sonuçları tıbbi tavsiye niteliği taşımaz. Beslenme, kilo yönetimi veya sağlık durumunla ilgili karar almadan önce bir doktora, diyetisyene veya ilgili sağlık profesyoneline danışmanı öneririz.</p>
+
+  <div class="note">
+    Sorularının, önerilerinin veya geri bildirimlerinin varsa bize <a href="mailto:iletisim@metabolizmagunlugu.com">iletisim@metabolizmagunlugu.com</a> adresinden ulaşabilirsin.
+  </div>
+
+  <footer>
+    <span><span class="footer-heart">♥</span> Metabolizma Günlüğü</span>
+    <span class="footer-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="gizlilik-politikasi.html">Gizlilik Politikası</a>
+    </span>
+  </footer>
+
+</div>
+</body>
+</html>

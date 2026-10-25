@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metabolizma Günlüğü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1A18;
+    --panel:#16241F;
+    --panel-2:#1C2C26;
+    --paper:#F4EFE4;
+    --mint:#4FBFA0;
+    --mint-dim:#2E6F5C;
+    --amber:#E3A75B;
+    --azure:#6FA8C9;
+    --line: rgba(244,239,228,0.12);
+    --line-strong: rgba(244,239,228,0.22);
+    --muted: rgba(244,239,228,0.58);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(79,191,160,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(111,168,201,0.08), transparent 55%),
+      radial-gradient(rgba(244,239,228,0.05) 1px, transparent 1px),
+      var(--ink);
+    background-size: auto, auto, 26px 26px, auto;
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--mint); color:#0F1A18; }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 76px 0 48px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    left:50%; bottom:-1px;
+    transform:translateX(-50%);
+    width:30px; height:16px;
+    background: var(--ink);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234FBFA0' stroke-width='2'%3E%3Cpath d='M12 21s-7-4.35-9.5-8.5C1 9 2.5 5 6.5 5c2 0 3.5 1.2 4.5 2.8C12 6.2 13.5 5 15.5 5c4 0 5.5 4 4 7.5C19 16.65 12 21 12 21z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 13px 13px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mint);
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom: 22px;
+  }
+  .eyebrow .dot{
+    width:7px;height:7px;border-radius:50%;
+    background: var(--mint);
+    box-shadow: 0 0 0 3px rgba(79,191,160,0.18);
+  }
+  .eyebrow svg{
+    width:14px; height:14px;
+    stroke: var(--mint);
+    fill:none;
+    stroke-width:2;
+    flex:none;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(34px, 5.4vw, 58px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+    max-width: 12ch;
+  }
+  h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--mint);
+  }
+  .hero p{
+    max-width: 52ch;
+    color: var(--muted);
+    font-size: 16.5px;
+  }
+
+  .pulse{
+    position:absolute;
+    right: -10px;
+    top: 60px;
+    width: 260px;
+    max-width: 40vw;
+    opacity: 0.9;
+  }
+  .pulse path{
+    fill:none;
+    stroke: var(--mint-dim);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .pulse .live{
+    stroke: var(--mint);
+    stroke-width: 2.2;
+    stroke-dasharray: 10 380;
+    animation: travel 5.5s linear infinite;
+    filter: drop-shadow(0 0 4px rgba(79,191,160,0.55));
+  }
+  @keyframes travel{
+    0%{ stroke-dashoffset: 0; }
+    100%{ stroke-dashoffset: -390; }
+  }
+  @media (max-width: 720px){ .pulse{ display:none; } }
+
+  /* ---------- SECTIONS ---------- */
+  section.block{
+    padding: 52px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  section.block.no-divider::after{ content:none; }
+  section.block::after{
+    content:"";
+    position:absolute;
+    left:50%; bottom:-1px;
+    transform:translateX(-50%);
+    width:30px; height:16px;
+    background: var(--ink);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234FBFA0' stroke-width='2'%3E%3Cpath d='M12 21s-7-4.35-9.5-8.5C1 9 2.5 5 6.5 5c2 0 3.5 1.2 4.5 2.8C12 6.2 13.5 5 15.5 5c4 0 5.5 4 4 7.5C19 16.65 12 21 12 21z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 13px 13px;
+  }
+  .block-head{
+    display:flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .block-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--mint);
+    width: 30px; height: 30px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex: none;
+  }
+  .block-title{
+    font-family:'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+  }
+  .block-desc{
+    color: var(--muted);
+    font-size: 14.5px;
+    max-width: 58ch;
+    margin: -14px 0 26px;
+  }
+
+  /* ---------- FORM ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 720px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+
+  .field{
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .field label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .field input, .field select{
+    background: var(--panel);
+    border: 1px solid var(--line-strong);
+    color: var(--paper);
+    font-family:'Inter', sans-serif;
+    font-size: 15px;
+    padding: 12px 12px;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color .15s ease, background .15s ease;
+    width:100%;
+  }
+  .field select{ appearance: none; cursor:pointer; }
+  .field.select-wrap{ position:relative; }
+  .field.select-wrap::after{
+    content:"▾";
+    position:absolute;
+    right:12px;
+    bottom:12px;
+    color: var(--muted);
+    pointer-events:none;
+    font-size:12px;
+  }
+  .field input:focus, .field select:focus{
+    border-color: var(--mint);
+    background: var(--panel-2);
+  }
+  .field input::placeholder{ color: rgba(244,239,228,0.32); }
+
+  .full{ grid-column: 1 / -1; }
+
+  /* ---------- MEALS ---------- */
+  .meals{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 820px){ .meals{ grid-template-columns: 1fr; } }
+
+  .meal-card{
+    background: var(--panel);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 18px;
+    display:flex;
+    flex-direction: column;
+    gap:12px;
+    position: relative;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .meal-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.28);
+  }
+  .meal-card::before, .meal-card::after,
+  .card::before, .card::after,
+  .food-card::before, .food-card::after{
+    content:"";
+    position:absolute;
+    width:9px; height:9px;
+    opacity:0.55;
+    pointer-events:none;
+  }
+  .meal-card::before, .card::before, .food-card::before{
+    top:7px; left:7px;
+    border-top:1px solid var(--mint-dim);
+    border-left:1px solid var(--mint-dim);
+  }
+  .meal-card::after, .card::after, .food-card::after{
+    bottom:7px; right:7px;
+    border-bottom:1px solid var(--mint-dim);
+    border-right:1px solid var(--mint-dim);
+  }
+  .meal-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .meal-icon{
+    width:30px;height:30px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .meal-icon svg{ width:16px;height:16px; }
+  .meal-sabah .meal-icon{ background: rgba(227,167,91,0.16); color: var(--amber); }
+  .meal-ogle .meal-icon{ background: rgba(79,191,160,0.16); color: var(--mint); }
+  .meal-aksam .meal-icon{ background: rgba(111,168,201,0.16); color: var(--azure); }
+  .meal-title{ font-family:'Fraunces', serif; font-size:17px; font-weight:600; }
+  .meal-time{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); }
+
+  textarea{
+    background: var(--ink);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    font-family:'Inter', sans-serif;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 6px;
+    resize: vertical;
+    min-height: 108px;
+    outline:none;
+    transition: border-color .15s ease;
+  }
+  textarea::placeholder{ color: rgba(244,239,228,0.3); }
+  textarea:focus{ border-color: var(--mint); }
+
+  /* ---------- BUTTON ---------- */
+  .cta-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  button.calc{
+    background: var(--mint);
+    color: #0F1A18;
+    border: none;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 15px 28px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
+    animation: heartGlow 2.4s ease-in-out infinite;
+  }
+  @keyframes heartGlow{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(79,191,160,0); }
+    50%{ box-shadow: 0 0 0 7px rgba(79,191,160,0.14); }
+  }
+  button.calc:hover{ transform: translateY(-1px); box-shadow: 0 8px 22px rgba(79,191,160,0.32); }
+  button.calc:active{ transform: translateY(0); }
+  .cta-note{ font-size: 13px; color: var(--muted); }
+  .error-msg{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--amber);
+    display:none;
+  }
+
+  /* ---------- RESULTS ---------- */
+  #results{ display:none; }
+  .result-top{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  @media (max-width: 820px){ .result-top{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.28);
+  }
+  .card-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .kcal-big{
+    font-family:'Fraunces', serif;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--mint);
+  }
+  .kcal-unit{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-left: 6px;
+  }
+  .kcal-sub{
+    margin-top: 14px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .kcal-sub span.v{ color: var(--paper); }
+
+  .gauge-card{ display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .gauge-card svg{ width:150px; height:150px; margin: 6px 0 4px; }
+  .gauge-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 26px;
+    font-weight:600;
+  }
+  .gauge-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .density-row{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 20px;
+    background: var(--panel);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .density-label{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+  .badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--line-strong);
+  }
+  .badge.hafif{ color: var(--azure); border-color: rgba(111,168,201,0.4); }
+  .badge.dengeli{ color: var(--mint); border-color: rgba(79,191,160,0.4); }
+  .badge.yogun{ color: var(--amber); border-color: rgba(227,167,91,0.4); }
+
+  .disclaimer{
+    font-size: 13px;
+    color: var(--muted);
+    border-left: 2px solid var(--line-strong);
+    padding-left: 14px;
+    margin-top: 6px;
+  }
+
+  footer{
+    padding: 40px 0 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-family:'IBM Plex Mono', monospace;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-heart{
+    color: var(--mint);
+    display:inline-block;
+    animation: heartbeat 1.8s ease-in-out infinite;
+  }
+  @keyframes heartbeat{
+    0%,100%{ transform: scale(1); }
+    25%{ transform: scale(1.25); }
+    40%{ transform: scale(1); }
+  }
+  .footer-links{
+    display:flex;
+    gap: 18px;
+  }
+  .footer-links a{
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .footer-links a:hover{
+    color: var(--mint);
+    border-color: var(--mint);
+  }
+
+  /* ---------- AD SLOT ---------- */
+  .ad-slot{
+    margin: 8px 0 0;
+    padding: 18px 20px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    background: rgba(244,239,228,0.02);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height: 84px;
+    text-align:center;
+  }
+  .ad-slot .ad-inner{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+  }
+  .ad-slot .ad-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .ad-slot .ad-sub{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: rgba(244,239,228,0.32);
+  }
+
+  /* ---------- BMI ---------- */
+  .bmi-card{
+    margin-bottom: 18px;
+  }
+  .bmi-top{
+    display:flex;
+    align-items:baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .bmi-value{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 40px;
+    color: var(--paper);
+  }
+  .bmi-value span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-left: 6px;
+  }
+  .bmi-cat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    padding: 6px 13px;
+    border-radius: 20px;
+    border: 1px solid var(--line-strong);
+  }
+  .bmi-cat.zayif{ color: var(--azure); border-color: rgba(111,168,201,0.4); }
+  .bmi-cat.normal{ color: var(--mint); border-color: rgba(79,191,160,0.4); }
+  .bmi-cat.fazla{ color: var(--amber); border-color: rgba(227,167,91,0.4); }
+  .bmi-cat.obez{ color: #E28B6B; border-color: rgba(226,139,107,0.4); }
+
+  .bmi-scale{
+    position: relative;
+    height: 10px;
+    border-radius: 6px;
+    overflow: visible;
+    background: linear-gradient(to right,
+      var(--azure) 0%, var(--azure) 18.75%,
+      var(--mint) 18.75%, var(--mint) 45%,
+      var(--amber) 45%, var(--amber) 62.5%,
+      #E28B6B 62.5%, #E28B6B 100%);
+  }
+  .bmi-marker{
+    position:absolute;
+    top: -7px;
+    width: 3px;
+    height: 24px;
+    background: var(--paper);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: left 1s ease;
+  }
+  .bmi-ticks{
+    display:flex;
+    justify-content: space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  /* ---------- GOALS / FOOD ---------- */
+  #goalSection{ display:none; }
+  .goal-tabs{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .goal-tab{
+    background: var(--panel);
+    border: 1px solid var(--line-strong);
+    color: var(--paper);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align:left;
+    transition: border-color .15s ease, background .15s ease;
+    flex: 1 1 200px;
+  }
+  .goal-tab .gt-title{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size: 15px;
+    font-weight:600;
+    margin-bottom: 4px;
+    color: var(--paper);
+  }
+  .goal-tab .gt-kcal{ color: var(--mint); }
+  .goal-tab.active{
+    border-color: var(--mint);
+    background: var(--panel-2);
+    box-shadow: 0 0 0 1px rgba(79,191,160,0.3) inset;
+  }
+  .budget-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .budget-tabs .goal-tab.active{
+    border-color: var(--azure);
+    box-shadow: 0 0 0 1px rgba(111,168,201,0.3) inset;
+  }
+  .budget-tabs .goal-tab.active .gt-title{ color: var(--azure); }
+
+  .food-plan{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 900px){ .food-plan{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .food-plan{ grid-template-columns: 1fr; } }
+
+  .food-card{
+    background: var(--panel);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 16px;
+    position: relative;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .food-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.28);
+  }
+  .food-card .ft{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .food-card .fd{
+    font-size: 13.5px;
+    color: var(--paper);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="hero">
+    <svg class="pulse" viewBox="0 0 200 180" preserveAspectRatio="xMidYMid meet">
+      <path d="M100,168 C40,122 8,84 8,52 C8,24 28,6 54,6 C74,6 90,18 100,36 C110,18 126,6 146,6 C172,6 192,24 192,52 C192,84 160,122 100,168 Z"/>
+      <path class="live" d="M100,168 C40,122 8,84 8,52 C8,24 28,6 54,6 C74,6 90,18 100,36 C110,18 126,6 146,6 C172,6 192,24 192,52 C192,84 160,122 100,168 Z"/>
+    </svg>
+    <div class="eyebrow"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5 6.5 5c2 0 3.5 1.2 4.5 2.8C12 6.2 13.5 5 15.5 5c4 0 5.5 4 4 7.5C19 16.65 12 21 12 21z"/></svg><span class="dot"></span>Kişisel Metabolizma Paneli</div>
+    <h1>Bugün ne yediğini <em>anlat</em>,<br>bedenin sana ne söylüyor gör.</h1>
+    <p>Sabah, öğle ve akşam öğünlerini kendi cümlelerinle yaz; boy, kilo ve yaş bilgilerinle birlikte günlük kalori ihtiyacını, yağ ve su oranı tahminini hesaplayalım.</p>
+  </div>
+
+  <div class="ad-slot">
+    <div class="ad-inner">
+      <span class="ad-label">Reklam Alanı</span>
+      <span class="ad-sub">728 × 90</span>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">01</span>
+      <span class="block-title">Kişisel Bilgiler</span>
+    </div>
+    <div class="block-desc">Bu ölçümler, günlük enerji ihtiyacını ve vücut bileşimi tahminini hesaplamak için kullanılır.</div>
+
+    <div class="grid">
+      <div class="field select-wrap">
+        <label for="gender">Cinsiyet</label>
+        <select id="gender">
+          <option value="male">Erkek</option>
+          <option value="female">Kadın</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="age">Yaş</label>
+        <input type="number" id="age" placeholder="28" min="10" max="100">
+      </div>
+      <div class="field">
+        <label for="height">Boy (cm)</label>
+        <input type="number" id="height" placeholder="172" min="100" max="230">
+      </div>
+      <div class="field">
+        <label for="weight">Kilo (kg)</label>
+        <input type="number" id="weight" placeholder="70" min="30" max="250">
+      </div>
+      <div class="field select-wrap full">
+        <label for="activity">Hareket Düzeyi</label>
+        <select id="activity">
+          <option value="1.2">Hareketsiz — masa başı, az egzersiz</option>
+          <option value="1.375">Hafif aktif — haftada 1-3 gün egzersiz</option>
+          <option value="1.55" selected>Orta aktif — haftada 3-5 gün egzersiz</option>
+          <option value="1.725">Çok aktif — haftada 6-7 gün egzersiz</option>
+          <option value="1.9">Ekstra aktif — günde 2 antrenman / ağır fiziksel iş</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">02</span>
+      <span class="block-title">Bugünün Öğünleri</span>
+    </div>
+    <div class="block-desc">Ne yediğini olabildiğince ayrıntılı yaz — porsiyon, malzeme, hazırlanış şekli. Bu notlar, öğün yoğunluğunu değerlendirmemize yardımcı olur.</div>
+
+    <div class="meals">
+      <div class="meal-card meal-sabah">
+        <div class="meal-head">
+          <div class="meal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </div>
+          <div>
+            <div class="meal-title">Sabah</div>
+            <div class="meal-time">06:00 – 10:00</div>
+          </div>
+        </div>
+        <textarea id="sabah" placeholder="Örn: 2 dilim tam buğday ekmeği, 1 haşlanmış yumurta, beyaz peynir, birkaç zeytin, şekersiz çay..."></textarea>
+      </div>
+
+      <div class="meal-card meal-ogle">
+        <div class="meal-head">
+          <div class="meal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+          </div>
+          <div>
+            <div class="meal-title">Öğle</div>
+            <div class="meal-time">12:00 – 14:00</div>
+          </div>
+        </div>
+        <textarea id="ogle" placeholder="Örn: 1 kase mercimek çorbası, tavuklu salata, 1 dilim ekmek, ayran..."></textarea>
+      </div>
+
+      <div class="meal-card meal-aksam">
+        <div class="meal-head">
+          <div class="meal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.5A8.5 8.5 0 1111.5 3a7 7 0 009.5 9.5z"/></svg>
+          </div>
+          <div>
+            <div class="meal-title">Akşam</div>
+            <div class="meal-time">18:30 – 21:00</div>
+          </div>
+        </div>
+        <textarea id="aksam" placeholder="Örn: Izgara somon, buharda sebze, bulgur pilavı, cacık..."></textarea>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <button class="calc" onclick="hesapla()">Hesapla</button>
+      <span class="cta-note">Bilgilerin yalnızca bu sayfada, tarayıcında işlenir.</span>
+      <span class="error-msg" id="errorMsg">Lütfen yaş, boy ve kilo alanlarını eksiksiz doldur.</span>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="block no-divider" id="results" style="border-bottom:none;">
+    <div class="block-head">
+      <span class="block-num">03</span>
+      <span class="block-title">Sonuçlar</span>
+    </div>
+
+    <div class="density-row">
+      <span class="density-label">Bugünkü öğün yoğunluğu</span>
+      <span class="badge" id="densityBadge">—</span>
+    </div>
+
+    <div class="result-top">
+      <div class="card">
+        <div class="card-label">Günlük Kalori İhtiyacı</div>
+        <div><span class="kcal-big" id="tdeeOut">0</span><span class="kcal-unit">kcal / gün</span></div>
+        <div class="kcal-sub">
+          <div>Bazal metabolizma (BMR) &nbsp;<span class="v" id="bmrOut">—</span> kcal</div>
+          <div>Hareket düzeyi çarpanı &nbsp;<span class="v" id="factorOut">—</span></div>
+        </div>
+      </div>
+
+      <div class="card gauge-card">
+        <div class="card-label">Tahmini Yağ Oranı</div>
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="var(--line-strong)" stroke-width="10"/>
+          <circle id="fatRing" cx="60" cy="60" r="50" fill="none" stroke="var(--amber)" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="gauge-num" id="fatOut">0%</div>
+        <div class="gauge-tag">Deurenberg formülü, BKİ tabanlı</div>
+      </div>
+
+      <div class="card gauge-card">
+        <div class="card-label">Tahmini Su Oranı</div>
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="var(--line-strong)" stroke-width="10"/>
+          <circle id="waterRing" cx="60" cy="60" r="50" fill="none" stroke="var(--azure)" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="gauge-num" id="waterOut">0%</div>
+        <div class="gauge-tag">Watson formülü, vücut ağırlığına oranla</div>
+      </div>
+    </div>
+
+    <div class="card bmi-card">
+      <div class="bmi-top">
+        <div>
+          <div class="card-label">Vücut Kitle İndeksi (BKİ)</div>
+          <div class="bmi-value" id="bmiOut">0<span>kg/m²</span></div>
+        </div>
+        <span class="bmi-cat" id="bmiCat">—</span>
+      </div>
+      <div class="bmi-scale">
+        <div class="bmi-marker" id="bmiMarker" style="left:0%"></div>
+      </div>
+      <div class="bmi-ticks">
+        <span>16</span><span>18.5</span><span>25</span><span>30</span><span>40+</span>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Bu sonuçlar; boy, kilo, yaş ve cinsiyet üzerinden istatistiksel formüllerle (Mifflin-St Jeor, Deurenberg, Watson) hesaplanan <strong>tahminlerdir</strong>. Öğün notların bu hesaplara dahil edilmez, yalnızca yoğunluk değerlendirmesi için kullanılır. Kesin ölçüm için biyoelektrik empedans analizi veya bir sağlık profesyoneline danışman önerilir.
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="block no-divider" id="goalSection" style="border-bottom:none;">
+    <div class="block-head">
+      <span class="block-num">04</span>
+      <span class="block-title">Hedef Kalori ve Beslenme Önerisi</span>
+    </div>
+    <div class="block-desc">Bir hedef seç: mevcut kilonu koru, daha fit görün ya da yağ kaybederek zayıfla. Her hedef için önerilen günlük kalori ve örnek bir öğün planı aşağıda.</div>
+
+    <div class="goal-tabs">
+      <div class="goal-tab active" id="tab-maintain" onclick="selectGoal('maintain')">
+        <span class="gt-title">Kilonu Koru</span>
+        <span class="gt-kcal" id="kcal-maintain">— kcal</span>
+      </div>
+      <div class="goal-tab" id="tab-fit" onclick="selectGoal('fit')">
+        <span class="gt-title">Daha Fit Ol</span>
+        <span class="gt-kcal" id="kcal-fit">— kcal</span>
+      </div>
+      <div class="goal-tab" id="tab-lose" onclick="selectGoal('lose')">
+        <span class="gt-title">Zayıfla</span>
+        <span class="gt-kcal" id="kcal-lose">— kcal</span>
+      </div>
+    </div>
+
+    <div class="budget-label">Bütçe</div>
+    <div class="goal-tabs budget-tabs">
+      <div class="goal-tab" id="tab-budget-low" onclick="selectBudget('low')">
+        <span class="gt-title">Düşük Gelirli</span>
+        <span class="gt-kcal">Ekonomik malzemeler</span>
+      </div>
+      <div class="goal-tab active" id="tab-budget-mid" onclick="selectBudget('mid')">
+        <span class="gt-title">Orta Gelirli</span>
+        <span class="gt-kcal">Standart malzemeler</span>
+      </div>
+      <div class="goal-tab" id="tab-budget-high" onclick="selectBudget('high')">
+        <span class="gt-title">Yüksek Gelirli</span>
+        <span class="gt-kcal">Premium malzemeler</span>
+      </div>
+    </div>
+
+    <div class="food-plan">
+      <div class="food-card">
+        <div class="ft">Sabah</div>
+        <div class="fd" id="plan-sabah">—</div>
+      </div>
+      <div class="food-card">
+        <div class="ft">Öğle</div>
+        <div class="fd" id="plan-ogle">—</div>
+      </div>
+      <div class="food-card">
+        <div class="ft">Akşam</div>
+        <div class="fd" id="plan-aksam">—</div>
+      </div>
+      <div class="food-card">
+        <div class="ft">Ara Öğün</div>
+        <div class="fd" id="plan-araogun">—</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      Öğün önerileri, seçilen hedefin kalori aralığına yakın örnek bir gündür; kesin gram ölçümü değildir. Alerjin veya beslenme kısıtlaman varsa malzemeleri kendine göre uyarlayabilirsin.
+    </div>
+  </section>
+
+  <div class="ad-slot">
+    <div class="ad-inner">
+      <span class="ad-label">Reklam Alanı</span>
+      <span class="ad-sub">728 × 90</span>
+    </div>
+  </div>
+
+  <footer>
+    <span><span class="footer-heart">♥</span> Metabolizma Günlüğü — kişisel kullanım için tahmini bir hesaplama aracıdır.</span>
+    <span class="footer-links">
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="gizlilik-politikasi.html">Gizlilik Politikası</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+function hesapla(){
+  const genderEl = document.getElementById('gender');
+  const age = parseFloat(document.getElementById('age').value);
+  const height = parseFloat(document.getElementById('height').value);
+  const weight = parseFloat(document.getElementById('weight').value);
+  const activity = parseFloat(document.getElementById('activity').value);
+  const errorMsg = document.getElementById('errorMsg');
+
+  if(!age || !height || !weight || age<=0 || height<=0 || weight<=0){
+    errorMsg.style.display = 'inline';
+    document.getElementById('results').style.display = 'none';
+    return;
+  }
+  errorMsg.style.display = 'none';
+
+  const isMale = genderEl.value === 'male';
+
+  // BMR - Mifflin-St Jeor
+  let bmr = isMale
+    ? (10*weight + 6.25*height - 5*age + 5)
+    : (10*weight + 6.25*height - 5*age - 161);
+  bmr = Math.max(bmr, 800);
+
+  const tdee = bmr * activity;
+
+  // Body fat % - Deurenberg formula
+  const bmi = weight / Math.pow(height/100, 2);
+  const sexFactor = isMale ? 1 : 0;
+  let bodyFat = 1.20*bmi + 0.23*age - 10.8*sexFactor - 5.4;
+  bodyFat = Math.min(Math.max(bodyFat, 5), 55);
+
+  // Total body water - Watson formula (liters), then as % of weight
+  let tbw = isMale
+    ? (2.447 - 0.09156*age + 0.1074*height + 0.3362*weight)
+    : (-2.097 + 0.1069*height + 0.2466*weight);
+  let waterPct = (tbw / weight) * 100;
+  waterPct = Math.min(Math.max(waterPct, 35), 70);
+
+  // Meal density heuristic (word count only — not calorie counting)
+  const text = [
+    document.getElementById('sabah').value,
+    document.getElementById('ogle').value,
+    document.getElementById('aksam').value
+  ].join(' ').trim();
+  const wordCount = text.length ? text.split(/\s+/).length : 0;
+
+  const densityBadge = document.getElementById('densityBadge');
+  densityBadge.classList.remove('hafif','dengeli','yogun');
+  if(wordCount < 15){
+    densityBadge.textContent = 'Hafif — notların kısa, daha fazla ayrıntı ekleyebilirsin';
+    densityBadge.classList.add('hafif');
+  } else if(wordCount < 45){
+    densityBadge.textContent = 'Dengeli — üç öğün de makul ayrıntıda';
+    densityBadge.classList.add('dengeli');
+  } else {
+    densityBadge.textContent = 'Yoğun — bugün oldukça dolu öğünler yazmışsın';
+    densityBadge.classList.add('yogun');
+  }
+
+  // Fill numbers
+  document.getElementById('tdeeOut').textContent = Math.round(tdee).toLocaleString('tr-TR');
+  document.getElementById('bmrOut').textContent = Math.round(bmr).toLocaleString('tr-TR');
+  document.getElementById('factorOut').textContent = 'x' + activity.toFixed(3).replace(/0+$/,'').replace(/\.$/,'');
+  document.getElementById('fatOut').textContent = bodyFat.toFixed(1) + '%';
+  document.getElementById('waterOut').textContent = waterPct.toFixed(1) + '%';
+
+  // Rings: circumference = 2*pi*50 ≈ 314.16
+  const CIRC = 314.16;
+  const fatRing = document.getElementById('fatRing');
+  const waterRing = document.getElementById('waterRing');
+  fatRing.style.transition = 'stroke-dashoffset 1s ease';
+  waterRing.style.transition = 'stroke-dashoffset 1s ease';
+  requestAnimationFrame(()=>{
+    fatRing.setAttribute('stroke-dashoffset', CIRC - (CIRC * Math.min(bodyFat,50)/50));
+    waterRing.setAttribute('stroke-dashoffset', CIRC - (CIRC * Math.min(waterPct,70)/70));
+  });
+
+  // --- BMI ---
+  document.getElementById('bmiOut').innerHTML = bmi.toFixed(1) + '<span>kg/m\u00b2</span>';
+  const bmiCatEl = document.getElementById('bmiCat');
+  bmiCatEl.classList.remove('zayif','normal','fazla','obez');
+  let catText, catClass;
+  if(bmi < 18.5){ catText='Zayıf'; catClass='zayif'; }
+  else if(bmi < 25){ catText='Normal'; catClass='normal'; }
+  else if(bmi < 30){ catText='Fazla Kilolu'; catClass='fazla'; }
+  else{ catText='Obez'; catClass='obez'; }
+  bmiCatEl.textContent = catText;
+  bmiCatEl.classList.add(catClass);
+
+  // scale marker: map bmi range 16-40+ to 0-100%
+  const bmiMin = 16, bmiMax = 40;
+  let bmiPct = ((bmi - bmiMin) / (bmiMax - bmiMin)) * 100;
+  bmiPct = Math.min(Math.max(bmiPct, 2), 98);
+  requestAnimationFrame(()=>{
+    document.getElementById('bmiMarker').style.left = bmiPct + '%';
+  });
+
+  // --- Calorie goals ---
+  const safeFloor = isMale ? 1500 : 1200;
+  const goals = {
+    maintain: Math.round(tdee),
+    fit: Math.round(Math.max(tdee - 350, safeFloor)),
+    lose: Math.round(Math.max(tdee - 650, safeFloor))
+  };
+  document.getElementById('kcal-maintain').textContent = goals.maintain.toLocaleString('tr-TR') + ' kcal';
+  document.getElementById('kcal-fit').textContent = goals.fit.toLocaleString('tr-TR') + ' kcal';
+  document.getElementById('kcal-lose').textContent = goals.lose.toLocaleString('tr-TR') + ' kcal';
+
+  window.__goals = goals;
+  window.__currentGoal = 'fit';
+  document.getElementById('goalSection').style.display = 'block';
+  selectGoal('fit');
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// Sample healthy-food brackets by approximate daily kcal target, per budget tier
+const FOOD_BRACKETS = {
+  low: [
+    { max: 1400,
+      sabah: '2 haşlanmış yumurta, 1 dilim ekmek, domates',
+      ogle: '1 kase mercimek çorbası, 1 dilim ekmek',
+      aksam: 'Fırında tavuk but (100g), bulgur pilavı, salata',
+      araogun: '1 muz' },
+    { max: 1600,
+      sabah: 'Peynirli-domatesli 1 dilim ekmek, 1 yumurta',
+      ogle: 'Nohut yemeği, bulgur pilavı, ayran',
+      aksam: 'Haşlama tavuk göğsü (120g), patates püresi, salata',
+      araogun: 'Yoğurt, 1 elma' },
+    { max: 1800,
+      sabah: '2 yumurta, az peynir, ekmek, birkaç zeytin',
+      ogle: 'Kuru fasulye, pirinç pilavı, turşu',
+      aksam: 'Fırında tavuk but (150g), bulgur pilavı, salata',
+      araogun: 'Ayran, yarım simit' },
+    { max: 2000,
+      sabah: '3 yumurtalı menemen, ekmek',
+      ogle: 'Etli nohut yemeği, bulgur pilavı, cacık',
+      aksam: 'Izgara tavuk göğsü (180g), pirinç pilavı, salata',
+      araogun: '1 muz, yoğurt' },
+    { max: 2200,
+      sabah: 'Peynirli tost, 2 yumurta, süt',
+      ogle: 'Kıymalı bulgur pilavı, mercimek çorbası, salata',
+      aksam: 'Fırında tavuk but (200g), fırın patates, salata',
+      araogun: 'Fıstık ezmeli ekmek, süt' },
+    { max: 2500,
+      sabah: '4 yumurta, az peynir, ekmek, zeytin, süt',
+      ogle: 'Etli kuru fasulye, pirinç pilavı, ayran',
+      aksam: 'Izgara tavuk göğsü (220g), bulgur pilavı, közlenmiş sebze',
+      araogun: '1 muz, fıstık ezmesi, süt' },
+    { max: 2800,
+      sabah: 'Menemen (4 yumurta), ekmek, az peynir, süt',
+      ogle: 'Bol etli nohut yemeği, pirinç pilavı, ayran, salata',
+      aksam: 'Fırında tavuk but (250g), bulgur pilavı, patates, salata',
+      araogun: '2 muz, yoğurt, fıstık ezmeli ekmek' },
+    { max: Infinity,
+      sabah: 'Menemen (5 yumurta), bol ekmek, peynir, süt',
+      ogle: 'Bol etli kuru fasulye, pirinç pilavı, ayran, salata',
+      aksam: 'Fırında tavuk but (300g), bulgur pilavı, patates, salata',
+      araogun: '2 muz, yoğurt, fıstık ezmeli ekmek, süt' }
+  ],
+  mid: [
+    { max: 1400,
+      sabah: '2 haşlanmış yumurta, 1 dilim tam buğday ekmeği, domates-salatalık',
+      ogle: '120g ızgara tavuk göğsü, bol yeşillik salata, zeytinyağı-limon sos',
+      aksam: '100g fırında somon, buharda brokoli, yarım kase kinoa',
+      araogun: '1 avuç badem, 1 orta boy elma' },
+    { max: 1600,
+      sabah: '40g yulaf ezmesi, süt, yaban mersini, tarçın',
+      ogle: '1 kase mercimek çorbası, tam tahıllı ekmek, yanında yoğurt',
+      aksam: 'Yağsız ızgara köfte (120g), bulgur pilavı, mevsim salata',
+      araogun: 'Yunan yoğurdu, birkaç ceviz içi' },
+    { max: 1800,
+      sabah: '2 yumurtalı omlet, çeyrek avokado, tam buğday ekmeği',
+      ogle: 'Izgara tavuklu salata (az soslu), tam tahıllı kraker',
+      aksam: 'Fırında hindi göğsü, tatlı patates, kuşkonmaz',
+      araogun: 'Meyveli kefir, birkaç badem' },
+    { max: 2000,
+      sabah: 'Yulaf ezmesi, 1 tatlı kaşığı fıstık ezmesi, muz',
+      ogle: 'Derisiz tavuk but, esmer pirinç, sebze sote',
+      aksam: 'Izgara levrek, bulgur pilavı, zeytinyağlı sebze',
+      araogun: 'Meyveli yoğurt, karışık kuruyemiş' },
+    { max: 2200,
+      sabah: '3 yumurtalı omlet, tam tahıllı ekmek, az peynir, birkaç zeytin',
+      ogle: 'Etli sebze yemeği, bulgur pilavı, cacık',
+      aksam: '150g ızgara biftek, fırın patates, mevsim salata',
+      araogun: 'Kuruyemiş karışımı, meyveli yoğurt' },
+    { max: 2500,
+      sabah: '3 yumurta, çeyrek avokado, tam tahıllı ekmek, birkaç ceviz',
+      ogle: '180g ızgara tavuk but, esmer pirinç, zeytinyağlı sebze, ayran',
+      aksam: 'Fırında somon, bulgur pilavı, közlenmiş sebze',
+      araogun: 'Granolalı meyveli yoğurt, bir avuç kuruyemiş' },
+    { max: 2800,
+      sabah: '4 yumurtalı omlet, tam tahıllı ekmek, avokado, az peynir',
+      ogle: '200g ızgara kırmızı et, esmer pirinç pilavı, bol sebze, ayran',
+      aksam: 'Fırında tavuk but, fırın patates, zeytinyağlı kuru fasulye',
+      araogun: 'Fıstık ezmeli muz, kuruyemiş ve meyveli yoğurt' },
+    { max: Infinity,
+      sabah: '4 yumurta, tam tahıllı ekmek, avokado, az peynir, birkaç ceviz',
+      ogle: '220g ızgara et, esmer pirinç, zeytinyağlı sebze, humus',
+      aksam: 'Somon veya kırmızı et, bulgur pilavı, sebze, yoğurt',
+      araogun: 'Süt-muz-fıstık ezmeli smoothie, kuruyemiş, meyve' }
+  ],
+  high: [
+    { max: 1400,
+      sabah: 'Somonlu avokado tost, 1 haşlanmış yumurta',
+      ogle: 'Izgara levrek, kinoa salatası, rokka',
+      aksam: 'Izgara karides, buharda kuşkonmaz, bulgur',
+      araogun: 'Badem, taze meyve' },
+    { max: 1600,
+      sabah: 'Avokado, haşlanmış yumurta, tam tahıllı ekmek, taze sıkılmış portakal suyu',
+      ogle: 'Izgara somon, kinoa tabbule, yeşillik',
+      aksam: 'Dana bonfile (100g), fırın tatlı patates, ızgara sebze',
+      araogun: 'Yunan yoğurdu, bal, ceviz' },
+    { max: 1800,
+      sabah: '3 yumurtalı omlet, keçi peyniri, avokado, tam tahıllı ekmek',
+      ogle: 'Izgara ton balığı, kinoa salatası, avokado',
+      aksam: 'Dana biftek (120g), fırın tatlı patates, ızgara kuşkonmaz',
+      araogun: 'Badem sütlü protein smoothie, yaban mersini' },
+    { max: 2000,
+      sabah: 'Somonlu avokado tost, taze sıkılmış meyve suyu',
+      ogle: 'Izgara kuzu pirzola, kinoa, rokka salata',
+      aksam: 'Izgara levrek, ızgara sebze, kinoa',
+      araogun: 'Ceviz-badem karışımı, yaban mersini' },
+    { max: 2200,
+      sabah: '4 yumurta beyazı, avokado, somon dilimleri, tam tahıllı ekmek',
+      ogle: 'Dana biftek (150g), kinoa, ızgara sebze',
+      aksam: 'Izgara karides, mantar sote, bulgur',
+      araogun: 'Protein smoothie, badem' },
+    { max: 2500,
+      sabah: 'Somonlu omlet, avokado, taze sıkılmış meyve suyu, tam tahıllı ekmek',
+      ogle: 'Dana bonfile (180g), kinoa, ızgara kuşkonmaz',
+      aksam: 'Izgara levrek, tatlı patates, rokka-avokado salata',
+      araogun: 'Whey protein shake, badem, yaban mersini' },
+    { max: 2800,
+      sabah: 'Somon, avokado, 3 yumurta, tam tahıllı ekmek, taze sıkılmış meyve suyu',
+      ogle: 'Dana biftek (200g), kinoa, ızgara sebze, humus',
+      aksam: 'Izgara deniz ürünleri tabağı, bulgur, rokka salata',
+      araogun: 'Protein smoothie, badem, kuru meyve' },
+    { max: Infinity,
+      sabah: 'Somon, avokado, 4 yumurta, tam tahıllı ekmek, taze sıkılmış meyve suyu',
+      ogle: 'Dana biftek (250g), kinoa, ızgara sebze, humus',
+      aksam: 'Bol deniz ürünleri tabağı, kinoa, rokka-avokado salata',
+      araogun: 'Protein smoothie, badem, ceviz, kuru meyve' }
+  ]
+};
+
+function getBracket(kcal, budget){
+  const list = FOOD_BRACKETS[budget] || FOOD_BRACKETS.mid;
+  for(const b of list){
+    if(kcal <= b.max) return b;
+  }
+  return list[list.length - 1];
+}
+
+function renderPlan(){
+  if(!window.__goals) return;
+  const kcal = window.__goals[window.__currentGoal || 'fit'];
+  const bracket = getBracket(kcal, window.__currentBudget || 'mid');
+  document.getElementById('plan-sabah').textContent = bracket.sabah;
+  document.getElementById('plan-ogle').textContent = bracket.ogle;
+  document.getElementById('plan-aksam').textContent = bracket.aksam;
+  document.getElementById('plan-araogun').textContent = bracket.araogun;
+}
+
+function selectGoal(goal){
+  if(!window.__goals) return;
+  window.__currentGoal = goal;
+  ['maintain','fit','lose'].forEach(g=>{
+    document.getElementById('tab-'+g).classList.toggle('active', g === goal);
+  });
+  renderPlan();
+}
+
+function selectBudget(budget){
+  window.__currentBudget = budget;
+  ['low','mid','high'].forEach(b=>{
+    document.getElementById('tab-budget-'+b).classList.toggle('active', b === budget);
+  });
+  renderPlan();
+}
+</script>
+
+</body>
+</html>
